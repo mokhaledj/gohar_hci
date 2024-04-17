@@ -1,0 +1,85 @@
+<section class="heading-section">
+  <h1 class="title is-1 has-text-centered">To do</h1>
+
+
+</section>
+<div class="container">
+  <div class="add-todo-box">
+    <form #form="ngForm" (ngSubmit)="onFormSubmit(form)">
+      <div class="field is-grouped">
+        <p class="control is-expanded">
+          <input ngModel required name="text_" class="input" type="text" placeholder="Enter a new task...">
+          <input ngModel  name="description" class="input" type="text" placeholder="Describe your task">
+          <input ngModel  name="duedate" class="input" type="text" placeholder="Due Date">
+
+        </p>
+        <p class="control">
+          <button type="submit" class="button">
+            Add
+          </button>
+        </p>
+      </div>
+    </form>
+  </div>
+</div> 
+
+
+<section class="section">
+
+  
+  <div class="container">
+   
+    <div class="todos-list">
+      
+
+     
+
+
+      
+      <div class="todo-item "(click)="onTodoClicked(todo)" *ngFor="let todo of todos" [class.completed]="todo.completed">
+        <div (click)="$event.stopPropagation()" *ngIf="showForm ">
+          <form  #form1="ngForm" (ngSubmit)="updateTodo(form1,todo)">
+            <h1>Edit Task</h1>
+        
+            <label for="email"><b>Task name</b></label>
+            <input ngModel type="text" placeholder="New Name" name="text_" required>
+        
+            <label for="psw"><b>Description</b></label>
+            <input ngModel type="text" placeholder="Update description" name="description" >
+        
+            <label for="email"><b>Due Date</b></label>
+            <input ngModel type="text" placeholder="New Due date" name="duedate">
+        
+            <button type="submit" class="btn">Save</button>
+            <button  type="button" class="btn cancel" (click)="closeForm()">Close</button>
+          </form>
+        </div>
+  
+
+        <div >
+          <i class="material-icons">check</i>
+        </div>
+        <div class="todo-text">
+          {{todo.text}}
+          <div class="todo-description">
+            {{todo.description}}
+          </div>
+          <div class="todo-duedate">
+            {{todo.duedate}}
+          </div>
+        </div>
+        
+        
+        <div class="todo-control-box"(click)="$event.stopPropagation()">
+          <div class="todo-control-button">
+            <i  (click)="openForm()">edit</i>
+          </div>
+          <div class="todo-control-button is-danger">
+            <i (click)="deleteTask(todo)">delete</i>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
